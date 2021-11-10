@@ -22,12 +22,19 @@ function addName() {
   // - https://www.w3schools.com/jsref/prop_node_innertext.asp
 
   let nameElement = document.querySelector("#name");
+  nameElement.innerText = "Chase"
 }
 
 function addFavoriteThings() {
   console.log("Called addFavoriteThings()");
   let favoriteThings = document.querySelector("#favthings");
   console.log(favoriteThings);
+  favThings = ['Sports', 'Video Games', 'Cooking'];
+  favThings.forEach((item) => {
+    let i = document.createElement('li')
+    i.innerText = item
+    favoriteThings.appendChild(i)
+  })
 
   // 1. Get a reference to <ul id="favthings">
   // 2. Create a few list items representing your favorite things
@@ -52,12 +59,20 @@ function replaceImage() {
 }
 
 function changeCodeStatus() {
-  console.log("Called changeCodeStatus()");
+  //console.log("Called changeCodeStatus()");
   
   // codeStatus.innerHTML=`<img src="doge.gif" alt="My Doge">`;
   // 1. Get a reference to <div id="codestatus">
   // 2. Create image element containing a sweet ol' meme
   // 3. Replace text in codestatus w/ image
+  let codeStatus = document.querySelector("#codestatus");
+  let image = document.createElement('img');
+  image.src = "https://www.digitaltechnologylabs.com/wp-content/uploads/2019/06/01-240x300.jpg";
+  image.height = 200;
+  image.width = 200;
+  image.alt = "Image"
+  //console.log(image);
+  codeStatus.appendChild(image)
 }
 
 // Get a reference to the button w/ id="show-info-button"
@@ -99,6 +114,13 @@ informationForm.addEventListener("submit", function (event) {
 
   // Google things like:
   //   javascript form element get values
+
+  const formData = new FormData(event.target)
+  console.log(formData);
+  document.querySelector('#firstname').append(formData.get('fname'))
+  document.querySelector('#lastname').append(formData.get('lname'))
+  document.querySelector('#chosencar').append(formData.get('cars'))
+  document.querySelector('#icecreamstatus').append(formData.get('icecream'))
 });
 
 /*************************************
@@ -119,7 +141,7 @@ let consoleLogButton = document.querySelector("#console-log-button");
 
 // Log something when that button is clicked
 consoleLogButton.addEventListener("click", function () {
-  console.log("Change this text if you want!");
+  console.log("You clicked a button and now I'm logging it!");
 });
 
 let makeBlueButton = document.querySelector("#make-blue-button");
@@ -128,6 +150,8 @@ makeBlueButton.addEventListener("click", function () {
   // Your job:
   //  1. When a user clicks "Change the text to the right blue"
   //  2. Change the text in <div id="colorText">...</div> to blue
+  let colorText = document.querySelector('#colorText');
+  colorText.style.color = 'blue'
 });
 
 // Adding an event listener to document means the "keydown" event
@@ -142,6 +166,13 @@ document.addEventListener("keydown", function (event) {
   // See:
   // - https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
   // - https://javascript.info/keyboard-events
+  let colorText = document.querySelector('#colorText');
+  logKey(event.key)
+  function logKey(e) {
+    if(e == 'x') {
+      colorText.style.color = 'red'
+    }
+  }
 });
 
 /*************************************
@@ -159,10 +190,15 @@ document.addEventListener("keydown", function (event) {
  *   it is next to.
  */
 let toDoListForm = document.querySelector(".form");
+let toDoList = document.querySelector('#todos');
 console.log('todolistform',toDoListForm);
 // Do something when form is submitted
 toDoListForm.addEventListener("submit", function (event) {
-
+  event.preventDefault();
+  let formData = new FormData(event.target);
+  let child = document.createElement('li');
+  child.innerText = formData.get('todo');
+  toDoList.appendChild(child);
 });
 
 // Your code goes here
@@ -185,6 +221,17 @@ toDoListForm.addEventListener("submit", function (event) {
  */
 
 // Your code goes here
+let count = 1;
+setInterval(() => {
+  let seconds = document.querySelector('#seconds');
+  seconds.innerText = count;
+  count++;
+}, 1000)
+
+setTimeout(() => {
+  let timeout = document.querySelector('#delayedDisplay');
+  timeout.innerText = "This message is delayed by 5 seconds";
+}, 5000)
 
 /****************************************
  * Section 6 - Your own section!        *
